@@ -34,6 +34,7 @@ class Character {
         const result = Math.floor(Math.random() * 20) + 1 + mod;
         console.log(`${this.name} rolled a ${result}.`)
     }
+    static MAX_HEALTH=100;
 }
 //part2
 const robin = new Character(adventurer.name);
@@ -60,6 +61,7 @@ class Adventurer extends Character {
       // Every adventurer starts with a bed and 50 gold coins.
       this.inventory.push("bedroll", "50 gold coins");
     }
+    static ROLES=["Fighter", "Healer", "Wizard"];
     // Adventurers have the ability to scout ahead of them.
     scout () {
       console.log(`${this.name} is scouting ahead...`);
@@ -102,7 +104,26 @@ console.log(Leo);
 const Frank = new Companion(robin.companion.companion.name,"scout");
 console.log(Frank);
 
+//part5
 
+class AdventurerFactory {  
+    constructor (role) {
+      this.role = role;
+      this.adventurers = [];
+    }
+    generate (name) {
+      const newAdventurer = new Adventurer(name, this.role);
+      this.adventurers.push(newAdventurer);
+    }
+    findByIndex (index) {
+      return this.adventurers[index];
+    }
+    findByName (name) {
+      return this.adventurers.find((a) => a.name === name);
+    }
+}
+const healers = new AdventurerFactory("Healer");
+const robin = healers.generate("Robin");
 
 
 
