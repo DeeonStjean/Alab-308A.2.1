@@ -71,7 +71,32 @@ class Adventurer extends Character {
         console.log(`${this.name} can intimate enemy`);
         super.roll();
     }
-    
+    //part 6
+    duel(adventurer){
+        var round=1;
+        while((adventurer.health&&this.health)>50){
+            const myRoll = this.roll();
+            const enemyRoll = adventurer.roll();
+            if(myRoll > enemyRoll){
+                adventurer.health= adventurer.health -1; 
+            } else {
+                this.health= this.health -1; 
+            }
+        
+            console.log(myRoll);
+            console.log(enemyRoll);
+            console.log(adventurer.health);
+            console.log(this.health);
+            console.log(round);
+            round++;
+        }
+        if(this.health>adventurer.health){
+            console.log("winner is "+ this.name);
+        }else{
+            console.log("winner is "+ adventurer.name);
+        }
+    }
+    //part 6
 }
 class Companion extends Character{
     constructor (name, role) {
@@ -98,7 +123,11 @@ class Companion extends Character{
     } 
 }
 const advRobin = new Adventurer(robin.name,"leader");
+const dragon = new Adventurer("dragon","dragon");
+console.log(dragon);
 console.log(advRobin);
+advRobin.duel(dragon);
+
 const Leo = new Companion(robin.companion.name,"scout");
 console.log(Leo);
 const Frank = new Companion(robin.companion.companion.name,"scout");
@@ -123,9 +152,7 @@ class AdventurerFactory {
     }
 }
 const healers = new AdventurerFactory("Healer");
-const robin = healers.generate("Robin");
-
-
+const robinH = healers.generate("Robin");
 
 
 
